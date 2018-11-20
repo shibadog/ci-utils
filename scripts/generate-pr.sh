@@ -3,7 +3,7 @@
 create_pr_payload() {
   title="$1 upgrade $2"
   body="This is an auto generated PR created for $1 upgrade to $2"
-  echo '{"title":"'"$title"'","body":"'"$body"'","head":"'"$3"'","base":"develop"}'
+  echo '{"title":"'"$title"'","body":"'"$body"'","head":"'"$3"'","base":"'"$4"'"}'
 }
 
 # Needs to be called from the directory where PR needs to be generated
@@ -11,6 +11,7 @@ generate_pull_request() {
   local component=$1
   local tag=$2
   local repo=$3
+  local base=$4
 
   mkdir -p ~/.ssh
   cat > ~/.ssh/config <<EOF
@@ -38,6 +39,6 @@ EOF
 
   # create a PR here
   token=${GITHUB_API_TOKEN}
-  payload=$(create_pr_payload $component $tag $branch_name)
+  payload=$(create_pr_payload $component $tag $branch_name $base)
   curl -u making:${GITHUB_API_TOKEN} -H "Content-Type: application/json" -X POST -d "$payload" https://api.github.com/repos/making/${repo}/pulls
 }
