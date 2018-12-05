@@ -8,10 +8,11 @@ create_pr_payload() {
 
 # Needs to be called from the directory where PR needs to be generated
 generate_pull_request() {
-  local component=$1
-  local tag=$2
-  local repo=$3
-  local base=$4
+  local user=$1
+  local component=$2
+  local tag=$3
+  local repo=$4
+  local base=$5
 
   mkdir -p ~/.ssh
   cat > ~/.ssh/config <<EOF
@@ -40,5 +41,5 @@ EOF
   # create a PR here
   token=${GITHUB_API_TOKEN}
   payload=$(create_pr_payload $component $tag $branch_name $base)
-  curl -u making:${GITHUB_API_TOKEN} -H "Content-Type: application/json" -X POST -d "$payload" https://api.github.com/repos/making/${repo}/pulls
+  curl -u ${user}:${GITHUB_API_TOKEN} -H "Content-Type: application/json" -X POST -d "$payload" https://api.github.com/repos/${user}/${repo}/pulls
 }
