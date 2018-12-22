@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: registry-image
   source:
-    repository: ubuntu
+    repository: ellerbrock/alpine-bash-curl-ssl
 
 inputs:
 - name: ci-utils
@@ -22,6 +22,6 @@ run:
   - |
     set -e
     shopt -s dotglob
-    source ci-utils/scripts/generate-issue.sh
+    source ci-utils/scripts/generate-gh-issue.sh
     NEW_VERSION=$(cat release/version)
-    generate_issue "${ISSUE_USER}" "${ISSUE_COMPONENT}" "${NEW_VERSION}" "${ISSUE_REPO}"
+    generate_gh_issue "${ISSUE_USER}" "${ISSUE_COMPONENT}" "${NEW_VERSION}" "${ISSUE_REPO}"

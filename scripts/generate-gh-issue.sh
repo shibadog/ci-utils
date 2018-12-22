@@ -4,7 +4,7 @@ create_issue_payload() {
   echo '{"title":"'"$title"'","body":"'"$body"'"}'
 }
 
-generate_issue() {
+generate_gh_issue() {
   local user=$1
   local component=$2
   local tag=$3
