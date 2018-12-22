@@ -1,0 +1,27 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: ubuntu
+
+inputs:
+- name: ci-utils
+- name: release
+
+params:
+  ISSUE_USER:
+  ISSUE_COMPONENT:
+  ISSUE_REPO:
+  GITHUB_API_TOKEN: 
+run:
+  path:  bash
+  args:
+  - -c
+  - |
+    set -e
+    shopt -s dotglob
+    source ci-utils/scripts/generate-issue.sh
+    NEW_VERSION=$(cat release/version)
+    generate_issue "${ISSUE_USER}" "${ISSUE_COMPONENT}" "${NEW_VERSION}" "${ISSUE_REPO}"
