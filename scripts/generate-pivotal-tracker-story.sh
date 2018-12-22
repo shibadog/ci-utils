@@ -9,8 +9,8 @@ generate_pivtal_tracker_story() {
   local tag=$2
 
   # See https://www.pivotaltracker.com/help/api/rest/v5#Stories
-  token=${PIVTAOL_TRACKER_TOKEN}
-  project_id=${PIVTAOL_TRACKER_PROJECT_ID}
+  export token=${PIVTAOL_TRACKER_TOKEN}
+  export project_id=${PIVTAOL_TRACKER_PROJECT_ID}
   payload=$(create_story_payload $component $tag)
   curl -X POST -H "X-TrackerToken: ${token}" -H "Content-Type: application/json" -d "$payload" "https://www.pivotaltracker.com/services/v5/projects/${project_id}/stories"
 }
