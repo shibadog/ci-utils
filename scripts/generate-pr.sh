@@ -40,6 +40,6 @@ EOF
 
   # create a PR here
   token=${GITHUB_API_TOKEN}
-  payload=$(create_pr_payload $component $tag $branch_name $base)
+  payload=$(create_pr_payload "$component" "$tag" "$branch_name" "$base")
   curl -u ${user}:${GITHUB_API_TOKEN} -H "Content-Type: application/json" -X POST -d "$payload" https://api.github.com/repos/${repo}/pulls
 }

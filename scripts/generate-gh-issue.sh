@@ -12,6 +12,6 @@ generate_gh_issue() {
 
   # See https://developer.github.com/v3/issues/#create-an-issue
   token=${GITHUB_API_TOKEN}
-  payload=$(create_issue_payload $component $tag)
+  payload=$(create_issue_payload "$component" "$tag")
   curl -u ${user}:${GITHUB_API_TOKEN} -H "Content-Type: application/json" -X POST -d "$payload" https://api.github.com/repos/${repo}/issues
 }
