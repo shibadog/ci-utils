@@ -1,0 +1,26 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: ellerbrock/alpine-bash-curl-ssl
+
+inputs:
+- name: ci-utils
+- name: release
+
+params:
+  ISSUE_COMPONENT:
+  PIVTAOL_TRACKER_TOKEN:
+  PIVTAOL_TRACKER_PROJECT_ID:
+run:
+  path:  bash
+  args:
+  - -c
+  - |
+    set -e
+    shopt -s dotglob
+    source ci-utils/scripts/generate-pivotal-tracker-story.sh
+    NEW_VERSION=$(cat release/version)
+    generate_pivtal_tracker_story "${ISSUE_COMPONENT}" "${NEW_VERSION}"
