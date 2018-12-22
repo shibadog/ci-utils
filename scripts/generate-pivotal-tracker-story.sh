@@ -12,7 +12,5 @@ generate_pivtal_tracker_story() {
   token=${PIVTAOL_TRACKER_TOKEN}
   project_id=${PIVTAOL_TRACKER_PROJECT_ID}
   payload=$(create_story_payload $component $tag)
-  curl -u ${user}:${GITHUB_API_TOKEN} -H "Content-Type: application/json" -X POST -d "$payload" https://api.github.com/repos/${repo}/issues
-
   curl -X POST -H "X-TrackerToken: ${token}" -H "Content-Type: application/json" -d "$payload" "https://www.pivotaltracker.com/services/v5/projects/${project_id}/stories"
 }
